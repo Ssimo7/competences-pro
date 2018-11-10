@@ -15,21 +15,29 @@ export default class TestClass {
 
 let test = new TestClass();
 
-function computeRelativePosition(distance, distanceTotale) {
-  return (distance * 100 / distanceTotale) + "%";
-}
-
 document.addEventListener('DOMContentLoaded', function() {
   console.log(stock.contenants);
 
-  let zone1 = document.createElement("zone1");
-  zone1.style.position = "absolute";
-  let contenant = stock.contenants[0];
-  zone1.style.left = computeRelativePosition(contenant.posX, stock.width);
-  zone1.style.top = computeRelativePosition(contenant.posY, stock.height);
-  zone1.style.width = computeRelativePosition(contenant.width, stock.width);
-  zone1.style.height = computeRelativePosition(contenant.height, stock.height);
-  zone1.style.backgroundColor = "red";
-  let stockElement = document.getElementById("stock");
-  stockElement.appendChild(zone1);
+
+  let etageres = document.getElementById("etageres");
+  let etageresMap = document.getElementById("etageresMap");
+  let computeAreas = function() {
+
+    stock.contenants.forEach(function(contenant) {
+      const left = contenant.posX / stock.width * etageres.offsetWidth;
+      const top = contenant.posY / stock.height * etageres.offsetHeight;
+      const width = contenant.width / stock.width * etageres.offsetWidth;
+      const height = contenant.height / stock.height * etageres.offsetHeight;
+
+      //   <area shape="rect" coords="34,44,270,350" href="…">
+      let area = document.createElement("area");
+      area.shape = 'rect'
+      area.coords= [left, top, left+width, top+height].join(',')
+      etageresMap.appendChild(area);
+    });
+  };
+
+  window.addEventListener('resize', computeAreas);
+  etageres.addEventListener('load', computeAreas);
+
 }, false);
