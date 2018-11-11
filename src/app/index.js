@@ -13,8 +13,6 @@ export default class TestClass {
 
 }
 
-let test = new TestClass();
-
 document.addEventListener('DOMContentLoaded', function() {
   console.log(stock.contenants);
 
@@ -33,6 +31,9 @@ document.addEventListener('DOMContentLoaded', function() {
       let area = document.createElement("area");
       area.shape = 'rect'
       area.coords= [left, top, left+width, top+height].join(',')
+      area.href = 'javascript:alert("Contient ' +
+        contenant.quantite + ' ' + (contenant.mesure === 'volume' ? 'litres' : 'bouteilles') + ' '
+      + 'de ' + contenant.type +'");'
       etageresMap.appendChild(area);
     });
   };
