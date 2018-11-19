@@ -24,8 +24,10 @@ function fournitMagasin (etageresId, stock) {
 }
 
 function ouvreContenant (contenant) {
-
-    alert('Contient ' + contenant.quantite + ' ' + (contenant.mesure === 'volume' ? 'litres' : 'bouteilles') + ' ' + 'de ' + contenant.type);
+  document.getElementById('contenant').classList.replace('cache', 'montre');
+  document.getElementById('type').textContent = contenant.type;
+  document.getElementById('quantite').textContent = contenant.quantite;
+  document.getElementById('unite').textContent = contenant.mesure === 'volume' ? 'litres' : 'bouteilles'
 };
 
 export {

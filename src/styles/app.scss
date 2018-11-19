@@ -16,5 +16,37 @@ body {
     position: relative;
     height: 100%;
   }
+
+  .contenant {
+    position : absolute;
+    top : 50%;
+    left: 30%;
+    color: black;
+    background: no-repeat center url('../images/etiquette.png');
+    background-size: contain;
+    height:130px;
+    width:200px;
+
+    .type {
+      position: absolute;
+      top: 35px;
+      left: 65px;
+    }
+
+    .quantite {
+      position: absolute;
+      top: 70px;
+      left: 70px;
+    }
+
+  }
+
+  .contenant.montre {
+  }
+
+  .contenant.cache {
+    display: none;
+  }
 }
+
 

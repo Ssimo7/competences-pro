@@ -1,5 +1,5 @@
 import chai, { expect } from 'chai';
-import { fournitMagasin } from '../src/app/fournitMagasin.js';
+import { fournitMagasin, ouvreContenant } from '../src/app/fournitMagasin.js';
 import jsdom from 'mocha-jsdom';
 
 describe('fourni magasin', function() {
@@ -10,11 +10,11 @@ describe('fourni magasin', function() {
 
   it('devrait ajouter les contenants sur les étagères', function() {
 
-    const propertion = 2;
+    const proportion = 2;
 
     document.body.innerHTML = '<div><img id="etageres"/></div>'
-    document.getElementById('etageres').width = 1400/propertion;
-    document.getElementById('etageres').height = 1000/propertion;
+    document.getElementById('etageres').width = 1400/proportion;
+    document.getElementById('etageres').height = 1000/proportion;
     let stock = {
       "width" : 1400,
       "height" : 1000,
@@ -41,9 +41,29 @@ describe('fourni magasin', function() {
     expect(map.firstChild.shape).to.equal('rect');
     expect(map.firstChild.coords).to.equal(
       [
-        100/propertion, 40/propertion,
-        (100 + 200)/propertion, (40 + 300)/propertion
+        100/proportion, 40/proportion,
+        (100 + 200)/proportion, (40 + 300)/proportion
       ].join(','));
-
   });
+
+  it("devrait afficher le contenu d'un contenant", function() {
+
+    document.body.innerHTML = `<div id="contenant" class="cache">
+        <label class="type" id="type"></label>
+          <label id="quantite"></label>
+          <label id="unite"></label>
+      </div>`
+
+    ouvreContenant({
+      "type": "Vrac SKY",
+      "mesure" : "volume",
+      "quantite": 25
+    });
+
+    expect(document.getElementById('contenant').classList.value).to.eql('montre');
+    expect(document.getElementById('type').textContent).to.eql('Vrac SKY');
+    expect(document.getElementById('quantite').textContent).to.eql('25');
+    expect(document.getElementById('unite').textContent).to.eql('litres');
+  });
+
 });
