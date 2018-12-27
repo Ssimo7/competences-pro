@@ -1,16 +1,27 @@
+import { Observable } from '../modeles/observable.js';
+
 const CLE_JOURNAL = 'journal';
 
-export class DepotJournal {
+export class DepotJournal extends Observable {
   constructor () {
-    this.lignes = JSON.parse(window.localStorage.getItem(CLE_JOURNAL));
+    super();
+    this.lignes = this.litLocalStorage();
     if (!this.lignes) {
       this.initialise();
     }
+    window.addEventListener('storage', () => {
+      this.lignes = this.litLocalStorage();
+      this.notifieObservateurs();
+    });
   }
 
   initialise () {
     this.lignes = [];
     this.enregistreLocalStorage();
+  }
+
+  litLocalStorage () {
+    return JSON.parse(window.localStorage.getItem(CLE_JOURNAL));
   }
 
   enregistreLocalStorage () {

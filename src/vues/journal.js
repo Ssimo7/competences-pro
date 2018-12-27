@@ -3,8 +3,11 @@ import '../styles/journal.scss';
 export class VueJournal {
   constructor (pointInsertion, journal) {
     this.journal = journal;
+    this.journal.ajouteObservateur(() => {
+      this.affiche();
+    });
 
-    const elementInsertion = document.querySelector(pointInsertion);
+    const elementPointInsertion = document.querySelector(pointInsertion);
 
     this.reset = document.createElement('button');
     this.reset.id = 'resetjournal';
@@ -13,11 +16,12 @@ export class VueJournal {
     this.reset.addEventListener('click', () => {
       this.journal.initialise();
     });
-    elementInsertion.appendChild(this.reset);
+    elementPointInsertion.appendChild(this.reset);
 
     this.element = document.createElement('pre');
     this.element.id = 'journal';
-    elementInsertion.appendChild(this.element);
+    this.element.classList.add('journal');
+    elementPointInsertion.appendChild(this.element);
   }
 
   affiche () {

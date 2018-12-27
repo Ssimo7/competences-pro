@@ -1,5 +1,8 @@
-export class Journal {
+import { Observable } from './observable.js';
+
+export class Journal extends Observable {
   constructor (maintenant, depot) {
+    super();
     this.maintenant = maintenant;
     this.depot = depot;
   }
@@ -12,6 +15,11 @@ export class Journal {
         description: contenant
       }
     );
+    this.notifieObservateurs();
+  }
+
+  initialise () {
+    this.depot.initialise();
   }
 
   evenements () {
