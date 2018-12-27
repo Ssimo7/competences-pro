@@ -1,5 +1,9 @@
 export class MockDepot {
   constructor () {
+    this.initialise();
+  }
+
+  initialise () {
     this.enregistrements = [];
   }
 

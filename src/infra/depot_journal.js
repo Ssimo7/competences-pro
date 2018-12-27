@@ -1,15 +1,25 @@
+const CLE_JOURNAL = 'journal';
+
 export class DepotJournal {
   constructor () {
-    this.lignes = JSON.parse(window.localStorage.getItem('journal'));
+    this.lignes = JSON.parse(window.localStorage.getItem(CLE_JOURNAL));
     if (!this.lignes) {
-      this.lignes = [];
-      window.localStorage.setItem('journal', JSON.stringify(this.lignes));
+      this.initialise();
     }
+  }
+
+  initialise () {
+    this.lignes = [];
+    this.enregistreLocalStorage();
+  }
+
+  enregistreLocalStorage () {
+    window.localStorage.setItem(CLE_JOURNAL, JSON.stringify(this.lignes));
   }
 
   enregistre (ligne) {
     this.lignes.push(ligne);
-    window.localStorage.setItem('journal', JSON.stringify(this.lignes));
+    this.enregistreLocalStorage();
   }
 
   evenements () {

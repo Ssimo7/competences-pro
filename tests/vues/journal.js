@@ -1,3 +1,5 @@
+/* global Event */
+
 import { VueJournal } from '../../src/vues/journal.js';
 import jsdom from 'jsdom-global';
 
@@ -31,5 +33,14 @@ describe('vue journal', function () {
     const boutonReset = pointInsertion.querySelector('#resetjournal');
     expect(boutonReset).to.not.be(null);
     expect(boutonReset.textContent).to.equal('effacer le journal');
+  });
+
+  it('remet à zero le journal quand on clique sur le bouton', function () {
+    depot.enregistre({ cle: 'valeur' });
+
+    const boutonReset = pointInsertion.querySelector('#resetjournal');
+    boutonReset.dispatchEvent(new Event('click'));
+
+    expect(depot.getContenu()).to.eql([]);
   });
 });

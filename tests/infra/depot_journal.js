@@ -9,6 +9,16 @@ describe('le depot du journal', function () {
     journal = new DepotJournal();
   });
 
+  it('initialise le journal', function () {
+    journal.enregistre({ cle: 'valeur' });
+
+    journal.initialise();
+
+    expect(journal.exportAsString()).to.equal('');
+    const lignes = JSON.parse(window.localStorage.getItem('journal'));
+    expect(lignes).to.be.empty();
+  });
+
   it('enregistre les lignes du journal dans le localStorage', function () {
     journal.enregistre({ cle: 'valeur' });
     journal.enregistre({ autreCle: 'valeur2' });
