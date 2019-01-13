@@ -5,6 +5,9 @@ export class Journal extends Observable {
     super();
     this.maintenant = maintenant;
     this.depot = depot;
+    // this.depot.ajouteObservateur(() => {
+    //  this.notifieObservateurs();
+    // });
   }
 
   enregistreOuvertureContenant (contenant) {
@@ -20,6 +23,7 @@ export class Journal extends Observable {
 
   initialise () {
     this.depot.initialise();
+    // this.notifieObservateurs();
   }
 
   evenements () {
