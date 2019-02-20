@@ -6,9 +6,15 @@ export class VueSituation {
   }
 
   affiche (pointInsertion, $) {
-    let piece = this.situation.pieceSuivante();
-    let vuePiece = new VuePiece(piece, 5000);
+    let identifiantIntervalle = setInterval(() => {
+      if (this.situation.sequenceTerminee()) {
+        clearInterval(identifiantIntervalle);
+        return;
+      }
 
-    vuePiece.affiche(pointInsertion, $, animationInitiale);
+      let piece = this.situation.pieceSuivante();
+      let vuePiece = new VuePiece(piece, 200);
+      vuePiece.affiche(pointInsertion, $, animationInitiale);
+    }, this.situation.cadenceArriveePieces());
   }
 }
